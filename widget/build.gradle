@@ -15,4 +15,5 @@ dependencies {
     implementation libs["leanback"]
     implementation libs["kotlin-stdlib"]
     implementation libs["core-ktx"]
+    implementation libs["basetools"]
 }
