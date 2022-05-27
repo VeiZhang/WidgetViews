@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/darker_gray">
+
+        <com.excellence.widget.leanback.ScrollbarVerticalGridView
+            android:id="@+id/scroll_vertical_gv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:fastScrollEnabled="true"
+            app:fastScrollHorizontalThumbDrawable="@drawable/scroll_thumb"
+            app:fastScrollHorizontalTrackDrawable="@drawable/scroll_track"
+            app:fastScrollVerticalThumbDrawable="@drawable/scroll_thumb"
+            app:fastScrollVerticalTrackDrawable="@drawable/scroll_track"
+            tools:listitem="@android:layout/simple_list_item_1" />
+
+    </RelativeLayout>
+</layout>

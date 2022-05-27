@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <attr name="pageItemCount" format="integer" />
+    <attr name="loop" format="boolean" />
+    <!-- 是否额外处理key事件，默认true：额外处理，循环滚动；false：表示系统处理 -->
+    <attr name="handleKey" format="boolean" />
+    <declare-styleable name="LoopVerticalGridView">
+        <attr name="pageItemCount" />
+        <attr name="loop" />
+
+        <!-- 有时候需要屏蔽循环key事件，则设置false -->
+        <attr name="handleKey" />
+        <!-- 多列时，有时候左右使用系统处理，不需要额外处理时，默认true：额外处理，循环滚动；false：系统处理 -->
+        <attr name="handleLeftKey" format="boolean" />
+        <attr name="handleRightKey" format="boolean" />
+    </declare-styleable>
+
+    <declare-styleable name="ScrollbarVerticalGridView">
+        <attr name="isAlignTop" format="boolean" />
+    </declare-styleable>
+
+    <declare-styleable name="LoopHorizontalGridView">
+        <attr name="pageItemCount" />
+        <attr name="loop" />
+
+        <!-- 有时候需要屏蔽循环key事件，则设置false -->
+        <attr name="handleKey" />
+        <!-- 多行时，有时候上下使用系统处理，不需要额外处理时，默认true：额外处理，循环滚动；false：系统处理 -->
+        <attr name="handleUpKey" format="boolean" />
+        <attr name="handleDownKey" format="boolean" />
+    </declare-styleable>
+
+    <attr name="wrap_content" format="boolean" />
+    <declare-styleable name="WrapContentHorizontalGridView">
+        <attr name="wrap_content" />
+    </declare-styleable>
+
+    <declare-styleable name="WrapContentVerticalGridView">
+        <attr name="wrap_content" />
+    </declare-styleable>
+
+    <declare-styleable name="AutoVerticalScrollTextView">
+        <!-- 单位ms，默认5000ms -->
+        <attr name="delayStart" format="integer" />
+        <attr name="step" format="integer" />
+        <attr name="speed" format="integer" />
+        <attr name="maxHeight" format="dimension" />
+        <attr name="scrollEnabled" format="boolean" />
+        <!-- 滚动方式 0：绘制文本高度，但是会有重叠的情况，少于三行时；1：通过TextView#scrollBy控制，但是VideoView刷新时，会频繁闪烁-->
+        <attr name="scrollType" format="enum">
+            <enum name="translate" value="0" />
+            <enum name="scrollTo" value="1" />
+        </attr>
+    </declare-styleable>
+
+    <declare-styleable name="ClockTextView">
+        <attr name="timeFormat" format="string|reference" />
+    </declare-styleable>
+
+</resources>
