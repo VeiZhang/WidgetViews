@@ -5,7 +5,9 @@ import android.util.Pair;
 import com.excellence.basetoolslibrary.recycleradapter.BaseRecyclerListAdapter;
 import com.excellence.basetoolslibrary.recycleradapter.RecyclerViewHolder;
 import com.excellence.widget.sample.base.BaseActivity;
+import com.excellence.widget.sample.fragments.ClockFragment;
 import com.excellence.widget.sample.fragments.ScrollBarVerticalGridViewFragment;
+import com.excellence.widget.sample.fragments.TextFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,6 +50,8 @@ public class MainActivity extends BaseActivity<ViewDataBinding> {
 
         List<Pair<String, Fragment>> list = new ArrayList<>();
         list.add(Pair.create("ScrollBar VerticalGridView", ScrollBarVerticalGridViewFragment.newInstance()));
+        list.add(Pair.create("Clock", ClockFragment.newInstance()));
+        list.add(Pair.create("TextView", TextFragment.newInstance()));
         adapter.submitList(list);
 
         adapter.setOnItemFocusChangeListener((viewHolder, v, hasFocus, position) -> {
