@@ -56,6 +56,7 @@
 
     <declare-styleable name="ClockTextView">
         <attr name="timeFormat" format="string|reference" />
+        <attr name="isFollowSystem" format="boolean" />
     </declare-styleable>
 
 </resources>

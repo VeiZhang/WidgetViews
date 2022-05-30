@@ -15,7 +15,7 @@ import com.excellence.widget.R;
 import androidx.annotation.StringRes;
 import androidx.appcompat.widget.AppCompatTextView;
 
-import static com.excellence.basetoolslibrary.utils.EmptyUtils.isNotEmpty;
+import static android.text.format.DateFormat.is24HourFormat;
 
 /**
  * <pre>
@@ -27,7 +27,7 @@ import static com.excellence.basetoolslibrary.utils.EmptyUtils.isNotEmpty;
  */
 public class ClockTextView extends AppCompatTextView {
 
-    private static final String TIME_FORMAT = "HH:ss";
+    private static final String TIME_FORMAT = "HH:mm";
 
     private String mOTimeFormat;
     private String mTimeFormat;
@@ -36,6 +36,7 @@ public class ClockTextView extends AppCompatTextView {
     private Runnable mTicker;
     private FormatChangeObserver mFormatChangeObserver;
     private boolean isTickerStopped = false;
+    private boolean isFollowSystem = true;
 
     public ClockTextView(Context context) {
         this(context, null);
@@ -49,6 +50,7 @@ public class ClockTextView extends AppCompatTextView {
         super(context, attrs, defStyleAttr);
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.ClockTextView);
         mOTimeFormat = typedArray.getString(R.styleable.ClockTextView_timeFormat);
+        isFollowSystem = typedArray.getBoolean(R.styleable.ClockTextView_isFollowSystem, isFollowSystem);
         typedArray.recycle();
 
         setTimeFormat(mOTimeFormat);
@@ -85,12 +87,28 @@ public class ClockTextView extends AppCompatTextView {
         mHandler.removeCallbacksAndMessages(null);
     }
 
-    private void transferTimeFormat(String timeFormat) {
-        if (isNotEmpty(timeFormat)) {
-            mTimeFormat = timeFormat;
-        } else {
-            mTimeFormat = TIME_FORMAT;
+    private String transferTimeFormat(String timeFormat) {
+        if (timeFormat == null) {
+            timeFormat = TIME_FORMAT;
         }
+
+        if (isFollowSystem) {
+            if (is24HourFormat(getContext())) {
+                timeFormat = timeFormat.replace("a", "").trim()
+                        .replace("hh", "HH");
+            } else {
+                timeFormat = timeFormat.replace("HH", "hh");
+                if (timeFormat.contains("hh") || timeFormat.contains("mm")) {
+                    if (!timeFormat.contains("a")) {
+                        /**
+                         * 注意有小时和分钟才增加a，否则如年月日不增加a
+                         */
+                        timeFormat += " " + "a";
+                    }
+                }
+            }
+        }
+        return timeFormat;
     }
 
     public void setTimeFormat(@StringRes int timeFormatResId) {
@@ -99,7 +117,7 @@ public class ClockTextView extends AppCompatTextView {
 
     public void setTimeFormat(String timeFormat) {
         mOTimeFormat = timeFormat;
-        transferTimeFormat(timeFormat);
+        mTimeFormat = transferTimeFormat(timeFormat);
     }
 
     private class FormatChangeObserver extends ContentObserver {
