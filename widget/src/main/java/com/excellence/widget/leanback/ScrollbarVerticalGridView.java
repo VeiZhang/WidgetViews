@@ -111,16 +111,22 @@ public class ScrollbarVerticalGridView extends VerticalGridView {
         int offset = getScrollRange(selection);
 
         // 上临界
-        if (selection <= centerChildCount) {
-            offset = mFastScroller.mVerticalThumbHeight / 2;
+        if (getRowNumber(selection) <= getRowNumber(centerChildCount)) {
+            offset = 0;
         }
 
         // 下临界
-        if (selection >= (getItemCount() - 1) - centerChildCount) {
-            offset = getScrollRange(selection);
+        int row = getRowNumber(getItemCount() - 1) - getRowNumber(centerChildCount);
+        if (getRowNumber(selection) >= row) {
+            offset = getScrollRange(getItemCount() - 1 - centerChildCount);
         }
 
         return offset;
+    }
+
+    private int getScrollRange(int selection) {
+        // mFastScroller.mVerticalThumbCenterY
+        return getRowNumber(selection) * getItemHeight() - mFastScroller.mVerticalThumbHeight / 2;
     }
 
     @Override
@@ -138,11 +144,6 @@ public class ScrollbarVerticalGridView extends VerticalGridView {
         return getRowNumber(getItemCount() - 1) * getItemHeight();
     }
 
-    private int getScrollRange(int selection) {
-        // mFastScroller.mVerticalThumbCenterY
-        return getRowNumber(selection) * getItemHeight() - mFastScroller.mVerticalThumbHeight / 2;
-    }
-
     public int getItemCount() {
         if (getAdapter() != null) {
             return getAdapter().getItemCount();
@@ -151,7 +152,7 @@ public class ScrollbarVerticalGridView extends VerticalGridView {
     }
 
     private int getRowNumber(int position) {
-        return (int) Math.ceil((float) position / mNumColumns);
+        return (int) Math.floor((float) position / mNumColumns);
     }
 
     private int getItemHeight() {
