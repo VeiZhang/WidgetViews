@@ -125,6 +125,9 @@ public class ScrollbarVerticalGridView extends VerticalGridView {
     }
 
     private int getScrollRange(int selection) {
+        if (mFastScroller == null) {
+            return 0;
+        }
         // mFastScroller.mVerticalThumbCenterY
         return getRowNumber(selection) * getItemHeight() - mFastScroller.mVerticalThumbHeight / 2;
     }
