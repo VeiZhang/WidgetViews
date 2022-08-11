@@ -40,12 +40,14 @@ public class ScrollbarVerticalGridView extends VerticalGridView {
         setWillNotDraw(false);
         setOverScrollMode(View.OVER_SCROLL_IF_CONTENT_SCROLLS);
         setVerticalScrollBarEnabled(true);
-        readSuperAttr(context, attrs, defStyle);
 
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.ScrollbarVerticalGridView,
                 defStyle, 0);
         isAlignTop = typedArray.getBoolean(R.styleable.ScrollbarVerticalGridView_isAlignTop, isAlignTop);
+        mNumColumns = typedArray.getInt(R.styleable.lbVerticalGridView_numberOfColumns, 1);
         typedArray.recycle();
+
+        readSuperAttr(context, attrs, defStyle);
 
         setNumColumns(mNumColumns);
     }
@@ -71,7 +73,6 @@ public class ScrollbarVerticalGridView extends VerticalGridView {
                     resources.getDimensionPixelSize(R.dimen.fastscroll_minimum_range),
                     resources.getDimensionPixelOffset(R.dimen.fastscroll_margin));
         }
-        mNumColumns = a.getInt(R.styleable.lbVerticalGridView_numberOfColumns, 1);
 
         a.recycle();
     }
@@ -125,10 +126,10 @@ public class ScrollbarVerticalGridView extends VerticalGridView {
     }
 
     private int getScrollRange(int selection) {
+        // mFastScroller.mVerticalThumbCenterY
         if (mFastScroller == null) {
             return 0;
         }
-        // mFastScroller.mVerticalThumbCenterY
         return getRowNumber(selection) * getItemHeight() - mFastScroller.mVerticalThumbHeight / 2;
     }
 
@@ -147,14 +148,14 @@ public class ScrollbarVerticalGridView extends VerticalGridView {
         return getRowNumber(getItemCount() - 1) * getItemHeight();
     }
 
-    public int getItemCount() {
+    public final int getItemCount() {
         if (getAdapter() != null) {
             return getAdapter().getItemCount();
         }
         return 0;
     }
 
-    private int getRowNumber(int position) {
+    protected final int getRowNumber(int position) {
         return (int) Math.floor((float) position / mNumColumns);
     }
 

@@ -120,19 +120,19 @@ public class WrapContentVerticalGridView extends LoopVerticalGridView {
             return;
         }
 
-        if (!isWrapContent || mNumColumns != 1) {
+        if (!isWrapContent) {
             return;
         }
 
-        int count = getChildCount();
+        int childCount = getChildCount();
         if (getAdapter() == null) {
             return;
         }
-        if (count <= 0) {
+        if (childCount <= 0) {
             /**
              * 先判断有没有childView
              */
-            if (getChildCount() != getAdapter().getItemCount()) {
+            if (getRowNumber(childCount) != getRowNumber(getAdapter().getItemCount())) {
                 post(this::setWrapContent);
             }
             return;
@@ -151,12 +151,12 @@ public class WrapContentVerticalGridView extends LoopVerticalGridView {
             itemMarginBottom = params.bottomMargin;
         }
 
-        count = getAdapter().getItemCount();
-        int height = getVerticalSpacing() * (count - 1)
-                + (itemHeight + itemMarginTop + itemMarginBottom) * count
+        int rowNumber = getRowNumber(getAdapter().getItemCount()) + 1;
+        int height = getVerticalSpacing() * (rowNumber - 1)
+                + (itemHeight + itemMarginTop + itemMarginBottom) * rowNumber
                 + getPaddingTop() + getPaddingBottom();
 
-        if (height < mOriginalHeight) {
+        if (mOriginalHeight == 0 || height < mOriginalHeight) {
             ViewGroup.LayoutParams lp = getLayoutParams();
             lp.height = height;
             setLayoutParams(lp);
