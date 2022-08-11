@@ -132,7 +132,7 @@ public class WrapContentVerticalGridView extends LoopVerticalGridView {
             /**
              * 先判断有没有childView
              */
-            if (getRowNumber(childCount) != getRowNumber(getAdapter().getItemCount())) {
+            if (childCount != getAdapter().getItemCount()) {
                 post(this::setWrapContent);
             }
             return;
@@ -151,7 +151,7 @@ public class WrapContentVerticalGridView extends LoopVerticalGridView {
             itemMarginBottom = params.bottomMargin;
         }
 
-        int rowNumber = getRowNumber(getAdapter().getItemCount()) + 1;
+        int rowNumber = getRowNumber(getAdapter().getItemCount() - 1) + 1;
         int height = getVerticalSpacing() * (rowNumber - 1)
                 + (itemHeight + itemMarginTop + itemMarginBottom) * rowNumber
                 + getPaddingTop() + getPaddingBottom();
