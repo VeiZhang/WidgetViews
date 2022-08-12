@@ -11,6 +11,8 @@ import com.excellence.widget.R;
 
 import androidx.annotation.Nullable;
 
+import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
+
 /**
  * <pre>
  *     author : VeiZhang
@@ -121,6 +123,9 @@ public class WrapContentVerticalGridView extends LoopVerticalGridView {
         }
 
         if (!isWrapContent) {
+            ViewGroup.LayoutParams lp = getLayoutParams();
+            lp.height = MATCH_PARENT;
+            setLayoutParams(lp);
             return;
         }
 
