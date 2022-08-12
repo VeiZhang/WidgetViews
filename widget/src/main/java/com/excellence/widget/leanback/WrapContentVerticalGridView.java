@@ -158,7 +158,10 @@ public class WrapContentVerticalGridView extends LoopVerticalGridView {
 
         if (mOriginalHeight == 0 || height < mOriginalHeight) {
             ViewGroup.LayoutParams lp = getLayoutParams();
-            lp.height = height;
+            /**
+             * 高度设置时，防止{@link androidx.recyclerview.widget.ListAdapter#submitList}绘制出现跳空换行绘制
+             */
+            lp.height = height + 1;
             setLayoutParams(lp);
         } else {
             ViewGroup.LayoutParams lp = getLayoutParams();
